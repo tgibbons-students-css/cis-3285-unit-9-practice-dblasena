@@ -49,7 +49,7 @@ namespace SingleResponsibilityPrinciple
 
         private bool ValidateTradeData(string[] fields, int currentLine)
         {
-           if(fields.Length<=4 || fields.Length>=6)
+           if(fields.Length<4 || fields.Length>6)
             {
                 LogMessage("Warn: Trade currencies on line {0} do not meet requirments.", currentLine, fields.Length);
                 return false;
