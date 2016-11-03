@@ -101,21 +101,21 @@ namespace SingleResponsibilityPrinciple
             }
         }
 
-      //  private void ReadURLTradeData()
-      //  {
-       //     var tradeData = new List();
-       //     var client = new WebClient();
-        //    using (var stream = client.OpenRead(http://faculty.css.edu/tgibbons/trades4.txt))
-        //    using (var reader = new StreamReader(stream))
-          //  {
-         //       string line;
-         //       while ((line = reader.ReadLine()) != null)
-         //       {
-         //           tradeData.Add(line);
-        //        }
-         //   }
-        //    return tradeData;
-      //  }
+       private IEnumerable<string> ReadURLTradeData(string url)
+        {
+            var tradeData = new List<string>();
+            var client = new WebClient();
+            using (var stream = client.OpenRead(url))
+            using (var reader = new StreamReader(stream))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    tradeData.Add(line);
+                }
+            }
+            return tradeData;
+        }
 
         private TradeRecord MapTradeDataToTradeRecord(string[] fields)
         {
@@ -165,9 +165,10 @@ namespace SingleResponsibilityPrinciple
             LogMessage("INFO", " {0} trades processed", trades.Count());
         }
 
-        public void ProcessTrades(Stream stream)
+        public void ProcessTrades(string url)
         {
-            var lines = ReadTradeData(stream);
+            var lines = ReadURLTradeData(url);
+           // var lines = ReadTradeData(stream);
             var trades = ParseTrades(lines);
             StoreTrades(trades);
         }
